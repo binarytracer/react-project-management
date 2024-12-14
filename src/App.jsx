@@ -11,10 +11,29 @@ function App() {
   });
 
   function handleStartAddProject(toNewProject) {
+    setProjectsState((prevState) => ({
+      ...prevState,
+      toCreateNewProject: toNewProject,
+    }));
+  }
+
+  function handleAddProject(newProject) {
+    setProjectsState((prevState) => ({
+      ...prevState,
+      toCreateNewProject: false,
+      projects: [
+        ...prevState.projects,
+        { ...newProject, id: Math.round(Math.random() * 10000) },
+      ],
+    }));
+  }
+
+  function handleCancelNewProject() {
     setProjectsState((prevState) => {
       return {
         ...prevState,
-        toCreateNewProject: toNewProject,
+        selectedProjectId: null,
+        toCreateNewProject: false,
       };
     });
   }
@@ -26,12 +45,17 @@ function App() {
   }
 
   if (projectState.toCreateNewProject) {
-    content = <NewProject />;
+    content = (
+      <NewProject onAdd={handleAddProject} onCancel={handleCancelNewProject} />
+    );
   }
-    
+
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectSidebar onStartAddProject={handleStartAddProject} />
+      <ProjectSidebar
+        onStartAddProject={handleStartAddProject}
+        projects={projectState.projects}
+      />
       {content}
     </main>
   );
