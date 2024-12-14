@@ -14,8 +14,8 @@ export default function NewProject(props) {
   function handleOnSave() {
     const data = {
       title: titleRef.current.value,
-      description: titleRef.current.value,
-      dueDate: titleRef.current.value,
+      description: descriptionRef.current.value,
+      dueDate: dueDateRef.current.value,
     };
 
     // validation
