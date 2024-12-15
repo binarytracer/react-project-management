@@ -1,5 +1,7 @@
+import Tasks from "./Tasks";
+
 export default function SelectedProject(props) {
-  const { project, onDelete } = props;
+  const { project, onDelete, onAddTask, onDeleteTask, tasks } = props;
 
   const formattedDueDate = new Date(project.dueDate).toLocaleDateString(
     "en-US",
@@ -20,6 +22,8 @@ export default function SelectedProject(props) {
           {project.description}
         </p>
       </header>
+
+      <Tasks onAdd={onAddTask} onDelete={onDeleteTask} tasks={tasks} />
     </div>
   );
 }
